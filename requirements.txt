@@ -1,0 +1,8 @@
+torch
+torchvision
+imagehash
+Pillow
+scikit-learn
+pandas
+matplotlib
+seaborn

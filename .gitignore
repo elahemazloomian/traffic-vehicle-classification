@@ -1,0 +1,10 @@
+# Dataset & Checkpoints
+dataset/
+checkpoints/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
