@@ -3,7 +3,8 @@ from PIL import Image
 import imagehash
 from collections import Counter
 
-def audit_dataset(base_dir=".", hamming_threshold=5):
+
+def audit_dataset(base_dir="..", hamming_threshold=5):
     splits = ["train", "test", "unclean"]
     all_images = []
     class_counts = {split: Counter() for split in splits}
@@ -22,7 +23,7 @@ def audit_dataset(base_dir=".", hamming_threshold=5):
                 if file.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.webp')):
                     img_path = os.path.join(root, file)
                     
-                    # استخراج نام کلاس از روی پوشه والد
+        
                     rel_path = os.path.relpath(img_path, split_dir)
                     path_parts = rel_path.split(os.sep)
                     if len(path_parts) > 1:
@@ -32,12 +33,10 @@ def audit_dataset(base_dir=".", hamming_threshold=5):
                     try:
                         with Image.open(img_path) as img:
                             width, height = img.size
-                            
-                            # بررسی تصاویر غیرعادی کوچک (کمتر از 32 در 32 پیکسل)
+
                             if width < 32 or height < 32:
                                 unusual_sizes.append((img_path, (width, height)))
 
-                            # محاسبه هش ادراکی به صورت شیء (برای محاسبه فاصله همینگ)
                             img_hash = imagehash.phash(img)
                             full_rel_path = os.path.relpath(img_path, base_dir)
                             all_images.append((full_rel_path, img_hash))
@@ -45,7 +44,7 @@ def audit_dataset(base_dir=".", hamming_threshold=5):
                     except Exception as e:
                         unreadable_files.append((img_path, str(e)))
 
-    # پیدا کردن تصاویر مشابه یا تکراری با استفاده از فاصله همینگ
+    
     duplicates = []
     visited = set()
     
@@ -56,7 +55,7 @@ def audit_dataset(base_dir=".", hamming_threshold=5):
         for j in range(i + 1, len(all_images)):
             if j in visited:
                 continue
-            # محاسبه فاصله همینگ بین دو هش (- روی شیءهای imagehash فاصله همینگ را می‌دهد)
+           
             hamming_dist = all_images[i][1] - all_images[j][1]
             if hamming_dist <= hamming_threshold:
                 group.append(all_images[j][0])
@@ -64,7 +63,7 @@ def audit_dataset(base_dir=".", hamming_threshold=5):
         if len(group) > 1:
             duplicates.append(group)
 
-    # چاپ گزارش نهایی
+
     print("\n" + "="*60)
     print("--- DATASET AUDIT REPORT (WITH HAMMING DISTANCE) ---")
     print("="*60)
@@ -94,4 +93,4 @@ def audit_dataset(base_dir=".", hamming_threshold=5):
     print("\nDataset audit with Hamming distance completed successfully!")
 
 if __name__ == "__main__":
-    audit_dataset()
+    audit_dataset(base_dir="..")
