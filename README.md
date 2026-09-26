@@ -83,3 +83,56 @@ Stratified 80/20 Split:
 
     Validation Set: 234 samples (used exclusively for hyperparameter tuning, scheduler decisions, and threshold selection, keeping the test set strictly frozen).
 
+
+
+
+Today's Progress & Milestones (September 20, 2026)
+
+
+Environment Configuration:
+     Created an isolated Python 3.11 environment (`vehicle_env`) to resolve compatibility and dependency conflicts.
+
+Hardware Acceleration (CUDA):
+     Successfully configured and verified PyTorch with CUDA 12.1 support to run the deep learning pipeline on the NVIDIA GTX 1650 GPU.
+
+Training Pipeline (`train.py`):
+    Implemented a robust 5-epoch training loop using `CrossEntropyLoss` and the `AdamW` optimizer, targeting the fine-tuned ResNet-18 model's classification head (`fc`).
+
+Added real-time tracking and printing of both Loss and Accuracy metrics for both Training and Validation phases.
+Implemented smart model checkpointing to automatically save the best-performing weights (`best_model.pth`) based on validation accuracy (achieving over 80% validation accuracy).
+
+
+
+Today's Progress & Milestones (September 26, 2026)
+
+Fine-Tuning ResNet-18 (`train_finetune.py`)
+    Unfreezing `layer4`: 
+        In the initial feature extraction phase, the entire ResNet-18 backbone was frozen. To  adapt high-level features specifically to traffic vehicle characteristics (such as body lines, headlights, and windshields), we unfroze the deepest convolutional block (`layer4`) alongside the classification head.
+    Differential Learning Rates:
+         Applied a very small learning rate (`1e-5`) to the `layer4` backbone to preserve pretrained weights, and a larger learning rate (`1e-3`) to the classification head (`fc`) using the `AdamW` optimizer with weight decay (`1e-4`).
+
+Building the Project-Required Simple CNN
+    Requirement:
+        Implemented a basic custom CNN featuring the required two convolution + activation + pooling blocks to serve as a foundational baseline from scratch.
+
+Challenges of the Simple CNN & Designing `TrafficNetProficient`
+
+    The Parameter Explosion & Overfitting Problem in Simple CNNs:
+
+        In naive architectures using a standard `Flatten` layer after pooling (e.g., $64 \times 56 \times 56$), the spatial features are flattened into over 25 million parameters for a single dense layer. 
+        On a limited vehicle dataset, this massive parameter count causes severe overfitting (near 100% training accuracy with poor validation generalization).
+
+Solutions & Design of `TrafficNetProficient`:
+
+    Global Average Pooling (`AdaptiveAvgPool2d`):
+
+        Replaced heavy flattening with global average pooling to collapse spatial dimensions down to $1 \times 1$, drastically reducing parameter size and curbing overfitting.
+
+    Batch Normalization (`BatchNorm2d`):
+    
+         Added after convolutions to stabilize internal covariate shifts, smooth the loss landscape, and accelerate convergence.
+
+    Dropout ($p=0.4$):
+  
+        Integrated into the classifier head to randomly drop connections during training and enforce robust feature learning.
+
