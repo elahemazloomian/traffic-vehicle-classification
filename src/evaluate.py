@@ -8,6 +8,7 @@ import json
 import numpy as np
 
 def load_trained_model(checkpoint_path="../best_model.pth", num_classes=8, device="cuda"):
+
     # بارگذاری مدل ResNet18 مطابق ساختار آموزش‌داده‌شده
     model = models.resnet18(weights=None)
     model.fc = nn.Linear(model.fc.in_features, num_classes)
@@ -61,6 +62,7 @@ if __name__ == "__main__":
     
 
     model = load_trained_model("best_model.pth", num_classes=len(test_dataset.classes), device=device)
+    
     
     all_preds = []
     all_targets = []
