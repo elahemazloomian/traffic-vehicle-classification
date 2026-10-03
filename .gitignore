@@ -1,10 +1,13 @@
-# Dataset & Checkpoints
-dataset/
+# data and outputs (never commit these)
+data/
 checkpoints/
+outputs/
+*.pth
+*.pt
+*.zip
 
-# Python cache
+# python
 __pycache__/
 *.pyc
-
-# Jupyter Notebook checkpoints
 .ipynb_checkpoints/
+.venv/
