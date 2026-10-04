@@ -1,0 +1,15 @@
+{
+  "name": "e60",
+  "changed_settings": [
+    "train.epochs=60"
+  ],
+  "parameters": 94728,
+  "epochs_run": 47,
+  "best_epoch": 41,
+  "val_macro_f1": 0.6786,
+  "val_accuracy": 0.6823,
+  "val_loss": 0.9568,
+  "val_r2": 0.494,
+  "train_accuracy_at_best": 0.6858,
+  "minutes": 10.8
+}

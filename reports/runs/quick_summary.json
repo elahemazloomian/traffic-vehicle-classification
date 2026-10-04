@@ -1,0 +1,15 @@
+{
+  "name": "quick",
+  "changed_settings": [
+    "train.epochs=2"
+  ],
+  "parameters": 94728,
+  "epochs_run": 2,
+  "best_epoch": 1,
+  "val_macro_f1": 0.3004,
+  "val_accuracy": 0.3438,
+  "val_loss": 1.753,
+  "val_r2": 0.1248,
+  "train_accuracy_at_best": 0.324,
+  "minutes": 0.6
+}
