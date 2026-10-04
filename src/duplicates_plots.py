@@ -1,3 +1,4 @@
+import math
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -20,27 +21,29 @@ def combine(path_a, path_b, data_dir, height=224):
     return canvas
 
 
-def plot_examples(pairs, data_dir, out_path, low, high, only_conflicts=False, n=6, seed=42):
-    sub = pairs[(pairs["distance"] >= low) & (pairs["distance"] <= high)]
-    if only_conflicts:
-        sub = sub[~sub["same_class"]]
-    if len(sub) == 0:
+def plot_pair_grid(rows, data_dir, out_path, title, cols=3, max_pairs=12, seed=42):
+    """Draw pairs side by side. If there are more than max_pairs, pick a random sample."""
+    total = len(rows)
+    if total == 0:
         print("No pairs for", out_path.name)
         return
-    sub = sub.sample(min(n, len(sub)), random_state=seed)
+    if total > max_pairs:
+        rows = rows.sample(max_pairs, random_state=seed)
+    n_rows = math.ceil(len(rows) / cols)
 
-    fig, axes = plt.subplots(3, 2, figsize=(12, 9))
+    fig, axes = plt.subplots(n_rows, cols, figsize=(cols * 6, n_rows * 3.4), squeeze=False)
     for ax in axes.ravel():
         ax.axis("off")
-    for ax, (_, row) in zip(axes.ravel(), sub.iterrows()):
+    for ax, (_, row) in zip(axes.ravel(), rows.iterrows()):
         ax.imshow(combine(row["path_a"], row["path_b"], data_dir))
         ax.set_title(
-            f"distance {row['distance']} | {row['split_a']}/{row['class_a']}  vs  "
+            f"d={row['distance']} | {row['split_a']}/{row['class_a']}  vs  "
             f"{row['split_b']}/{row['class_b']}",
             fontsize=9,
         )
-    plt.tight_layout()
-    plt.savefig(out_path, dpi=130)
+    fig.suptitle(f"{title} (showing {len(rows)} of {total} pairs)", fontsize=12)
+    plt.tight_layout(rect=[0, 0, 1, 0.97])
+    plt.savefig(out_path, dpi=90)
     plt.close()
     print("Saved", out_path)
 
@@ -48,18 +51,31 @@ def plot_examples(pairs, data_dir, out_path, low, high, only_conflicts=False, n=
 def main():
     cfg = load_config()
     set_seed(cfg["seed"])
+    seed = cfg["seed"]
     data_dir = cfg["paths"]["data_dir"]
     reports = Path(cfg["paths"]["reports_dir"])
-    figures = reports / "figures"
-    figures.mkdir(parents=True, exist_ok=True)
-    max_d = cfg["duplicates"]["max_distance"]
-    pairs = pd.read_csv(reports / "duplicate_pairs.csv")
+    out = reports / "figures" / "explore"
+    out.mkdir(parents=True, exist_ok=True)
 
-    plot_examples(pairs, data_dir, figures / "dup_distance_0.png", 0, 0, seed=cfg["seed"])
-    plot_examples(pairs, data_dir, figures / "dup_distance_1_4.png", 1, 4, seed=cfg["seed"])
-    plot_examples(pairs, data_dir, figures / "dup_distance_5_8.png", 5, max_d, seed=cfg["seed"])
-    plot_examples(pairs, data_dir, figures / "dup_label_conflicts.png", 0, max_d,
-                  only_conflicts=True, seed=cfg["seed"])
+    pairs = pd.read_csv(reports / "duplicate_pairs.csv")
+    print("Number of pairs at each exact distance:")
+    print(pairs["distance"].value_counts().sort_index().to_string())
+
+    # 1. Single small distances: where do pairs stop being the same picture?
+    for d in (1, 2, 3):
+        plot_pair_grid(pairs[pairs["distance"] == d], data_dir,
+                       out / f"pairs_distance_{d}.png", f"Distance {d}", seed=seed)
+
+    # 2. Every train-vs-test pair with distance <= 4 (possible test leakage)
+    cross = pairs[(pairs["split_a"] == "train") & (pairs["split_b"] == "test")
+                  & (pairs["distance"] <= 4)]
+    plot_pair_grid(cross, data_dir, out / "train_vs_test_le4.png",
+                   "train vs test, distance <= 4", max_pairs=30, seed=seed)
+
+    # 3. Every pair that looks alike but has different labels, distance <= 4
+    conflicts = pairs[(~pairs["same_class"]) & (pairs["distance"] <= 4)]
+    plot_pair_grid(conflicts, data_dir, out / "label_conflicts_le4.png",
+                   "different labels, distance <= 4", max_pairs=30, seed=seed)
 
 
 if __name__ == "__main__":
