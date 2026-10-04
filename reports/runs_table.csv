@@ -1,0 +1,5 @@
+run,changes,params,epochs,best_epoch,val_f1_best,val_f1_last5,val_acc_last5,val_r2_best,train_minus_val_acc,minutes
+d5_e60,"train.epochs=60 model.channels=[32,64,128,256,256]",982024,33,27,0.8792,0.8615,0.8604,0.7841,0.0912,8.2
+d4_e60,"train.epochs=60 model.channels=[32,64,128,256]",391432,47,41,0.8329,0.8255,0.8234,0.6905,0.045,11.5
+e60,train.epochs=60,94728,47,41,0.6786,0.6638,0.6703,0.494,0.0367,10.8
+baseline,-,94728,30,30,0.6579,0.6216,0.6318,0.4361,0.0083,7.1
