@@ -15,3 +15,6 @@ duplicates:
   max_distance: 8
   near_test_distance: 4
   unseen_classes: [neysan]
+
+split:
+  group_distance: 4

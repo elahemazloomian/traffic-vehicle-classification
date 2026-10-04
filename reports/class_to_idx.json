@@ -1,0 +1,10 @@
+{
+  "ambulance": 0,
+  "autobus": 1,
+  "kamyun": 2,
+  "kamyunet": 3,
+  "minibus": 4,
+  "savari": 5,
+  "taxi": 6,
+  "vanet": 7
+}
