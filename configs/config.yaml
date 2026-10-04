@@ -27,3 +27,8 @@ augmentation:
   scale: [0.9, 1.1]
   brightness: 0.3
   contrast: 0.3
+
+model:
+  channels: [32, 64, 128]
+  dropout: 0.0
+  pooling: max
