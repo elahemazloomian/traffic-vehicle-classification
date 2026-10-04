@@ -10,3 +10,6 @@ data:
   batch_size: 32
   val_fraction: 0.2
   num_workers: 0
+
+duplicates:
+  max_distance: 8
