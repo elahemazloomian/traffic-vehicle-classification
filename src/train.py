@@ -92,6 +92,8 @@ def main():
         scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
             optimizer, mode="max", factor=tc["scheduler_factor"], patience=tc["scheduler_patience"]
         )
+    elif tc["scheduler"] == "cosine":
+        scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=tc["epochs"])
 
     rows = []
     best_f1, best_epoch, bad_epochs = -1.0, 0, 0
@@ -115,11 +117,18 @@ def main():
               f"val loss {val['loss']:.3f} acc {val['accuracy']:.3f} macro-F1 {val['macro_f1']:.3f} R2 {val['r2']:.3f} | "
               f"{rows[-1]['seconds']:.0f}s")
 
-        if scheduler is not None:
+        if tc["scheduler"] == "plateau":
             scheduler.step(val["macro_f1"])
+        elif scheduler is not None:
+            scheduler.step()
 
-        if val["macro_f1"] > best_f1:
+        improved = val["macro_f1"] > best_f1
+        if improved:
             best_f1, best_epoch, bad_epochs = val["macro_f1"], epoch, 0
+        else:
+            bad_epochs += 1
+
+        if improved or tc["save"] == "last":
             torch.save({
                 "model_state": model.state_dict(),
                 "class_to_idx": class_to_idx,
@@ -132,11 +141,10 @@ def main():
                 "val_macro_f1": val["macro_f1"],
                 "val_accuracy": val["accuracy"],
             }, checkpoint_path)
-        else:
-            bad_epochs += 1
-            if bad_epochs >= tc["early_stopping_patience"]:
-                print(f"No improvement for {bad_epochs} epochs: stopping early.")
-                break
+
+        if not improved and tc["early_stopping_patience"] and bad_epochs >= tc["early_stopping_patience"]:
+            print(f"No improvement for {bad_epochs} epochs: stopping early.")
+            break
 
     history = pd.DataFrame(rows)
     history.to_csv(reports / "runs" / f"{args.name}_history.csv", index=False)
