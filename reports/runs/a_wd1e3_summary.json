@@ -1,0 +1,17 @@
+{
+  "name": "a_wd1e3",
+  "changed_settings": [
+    "train.epochs=60",
+    "model.channels=[32,64,128,256,256]",
+    "train.weight_decay=0.001"
+  ],
+  "parameters": 982024,
+  "epochs_run": 43,
+  "best_epoch": 37,
+  "val_macro_f1": 0.896,
+  "val_accuracy": 0.8958,
+  "val_loss": 0.3842,
+  "val_r2": 0.7982,
+  "train_accuracy_at_best": 0.9583,
+  "minutes": 10.9
+}
