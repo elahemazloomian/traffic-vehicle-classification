@@ -6,12 +6,12 @@
     "seed=43"
   ],
   "parameters": 982024,
-  "epochs_run": 42,
-  "best_epoch": 36,
-  "val_macro_f1": 0.8799,
-  "val_accuracy": 0.8776,
-  "val_loss": 0.4088,
-  "val_r2": 0.7829,
-  "train_accuracy_at_best": 0.9485,
-  "minutes": 10.7
+  "epochs_run": 39,
+  "best_epoch": 33,
+  "val_macro_f1": 0.8895,
+  "val_accuracy": 0.9,
+  "val_loss": 0.3507,
+  "val_r2": 0.8101,
+  "train_accuracy_at_best": 0.952,
+  "minutes": 9.9
 }

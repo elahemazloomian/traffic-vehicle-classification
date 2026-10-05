@@ -17,6 +17,8 @@ EXPERIMENTS = {
     "a_no_aug": ["augmentation.enabled=false"],
     "a_no_hflip": ["augmentation.hflip=0.0"],
     "a_dropout03": ["model.dropout=0.3"],
+    "a_dropout03_seed43": ["model.dropout=0.3", "seed=43"],
+    "a_dropout03_seed44": ["model.dropout=0.3", "seed=44"],
     "a_dropout05": ["model.dropout=0.5"],
     "a_wd0": ["train.weight_decay=0.0"],
     "a_wd1e3": ["train.weight_decay=0.001"],

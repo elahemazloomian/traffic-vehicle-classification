@@ -5,12 +5,12 @@
     "model.channels=[32,64,128,256,256]"
   ],
   "parameters": 982024,
-  "epochs_run": 33,
-  "best_epoch": 27,
-  "val_macro_f1": 0.8792,
-  "val_accuracy": 0.8776,
-  "val_loss": 0.3799,
-  "val_r2": 0.7841,
-  "train_accuracy_at_best": 0.9316,
-  "minutes": 8.6
+  "epochs_run": 23,
+  "best_epoch": 17,
+  "val_macro_f1": 0.8441,
+  "val_accuracy": 0.8657,
+  "val_loss": 0.4153,
+  "val_r2": 0.7539,
+  "train_accuracy_at_best": 0.8804,
+  "minutes": 6.1
 }
