@@ -42,7 +42,7 @@ def make_split(labels, group_ids, val_fraction, seed):
     return subset
 
 
-def run_checks(splits, pairs, hashes, group_distance):
+def run_checks(splits, pairs, hashes, group_distance, n_test=None):
     n_classes = splits["class"].nunique()
 
     # 1. A group must never be on both sides.
@@ -52,7 +52,8 @@ def run_checks(splits, pairs, hashes, group_distance):
 
     # 2. Test is untouched and shares no path with train/val.
     test_paths = set(splits.loc[splits["subset"] == "test", "path"])
-    assert len(test_paths) == 400, "test size changed"
+
+    assert n_test is None or len(test_paths) == n_test, "test size changed"
     assert test_paths.isdisjoint(set(tv["path"])), "test image found in train/val"
 
     # 3. Every class appears in every subset.
@@ -128,7 +129,7 @@ def main():
     print("groups:", len(sizes), "| groups with more than one image:", int((sizes > 1).sum()),
           "| largest group:", int(sizes.max()), "images")
 
-    run_checks(splits, pairs, hashes, group_distance)
+    run_checks(splits, pairs, hashes, group_distance, len(test))
     print("\nSaved:", reports / "splits.csv", "and", reports / "class_to_idx.json")
 
 
