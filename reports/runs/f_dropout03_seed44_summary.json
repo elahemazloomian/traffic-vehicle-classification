@@ -1,0 +1,21 @@
+{
+  "name": "f_dropout03_seed44",
+  "changed_settings": [
+    "model.channels=[32,64,128,256,256]",
+    "train.epochs=40",
+    "train.scheduler=cosine",
+    "train.early_stopping_patience=0",
+    "train.save=last",
+    "model.dropout=0.3",
+    "seed=44"
+  ],
+  "parameters": 982024,
+  "epochs_run": 40,
+  "best_epoch": 39,
+  "val_macro_f1": 0.8829,
+  "val_accuracy": 0.9,
+  "val_loss": 0.3514,
+  "val_r2": 0.8157,
+  "train_accuracy_at_best": 0.9427,
+  "minutes": 9.4
+}

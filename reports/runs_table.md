@@ -1,8 +1,14 @@
 | run | changes | params | epochs | best_epoch | val_f1_best | val_f1_last5 | val_acc_last5 | val_r2_best | train_minus_val_acc | minutes |
 |---|---|---|---|---|---|---|---|---|---|---|
+| f_base_seed43 | model.channels=[32,64,128,256,256] train.epochs=40 train.scheduler=cosine train.early_stopping_patience=0 train.save=last seed=43 | 982024 | 40 | 36 | 0.8925 | 0.8897 | 0.9046 | 0.8247 | 0.0672 | 10.7 |
+| f_dropout03_seed43 | model.channels=[32,64,128,256,256] train.epochs=40 train.scheduler=cosine train.early_stopping_patience=0 train.save=last model.dropout=0.3 seed=43 | 982024 | 40 | 33 | 0.8942 | 0.8811 | 0.8943 | 0.8193 | 0.0569 | 9.4 |
 | f_no_hflip | model.channels=[32,64,128,256,256] train.epochs=40 train.scheduler=cosine train.early_stopping_patience=0 train.save=last augmentation.hflip=0.0 | 982024 | 40 | 37 | 0.8842 | 0.8778 | 0.8903 | 0.8153 | 0.0852 | 12.7 |
+| f_dropout03_seed44 | model.channels=[32,64,128,256,256] train.epochs=40 train.scheduler=cosine train.early_stopping_patience=0 train.save=last model.dropout=0.3 seed=44 | 982024 | 40 | 39 | 0.8829 | 0.8734 | 0.8926 | 0.8157 | 0.0553 | 9.4 |
+| f_dropout03 | model.channels=[32,64,128,256,256] train.epochs=40 train.scheduler=cosine train.early_stopping_patience=0 train.save=last model.dropout=0.3 | 982024 | 40 | 39 | 0.8773 | 0.8733 | 0.8954 | 0.8244 | 0.057 | 9.6 |
+| f_base_seed44 | model.channels=[32,64,128,256,256] train.epochs=40 train.scheduler=cosine train.early_stopping_patience=0 train.save=last seed=44 | 982024 | 40 | 39 | 0.8766 | 0.8725 | 0.888 | 0.8035 | 0.0812 | 9.6 |
 | f_wd1e3 | model.channels=[32,64,128,256,256] train.epochs=40 train.scheduler=cosine train.early_stopping_patience=0 train.save=last train.weight_decay=0.001 | 982024 | 40 | 31 | 0.8754 | 0.8678 | 0.8869 | 0.7851 | 0.0859 | 9.4 |
 | f_wd0 | model.channels=[32,64,128,256,256] train.epochs=40 train.scheduler=cosine train.early_stopping_patience=0 train.save=last train.weight_decay=0.0 | 982024 | 40 | 26 | 0.8865 | 0.8669 | 0.8857 | 0.7728 | 0.0868 | 9.7 |
+| f_base | model.channels=[32,64,128,256,256] train.epochs=40 train.scheduler=cosine train.early_stopping_patience=0 train.save=last | 982024 | 40 | 37 | 0.8743 | 0.8667 | 0.8857 | 0.8157 | 0.0862 | 11.1 |
 | f_no_aug | model.channels=[32,64,128,256,256] train.epochs=40 train.scheduler=cosine train.early_stopping_patience=0 train.save=last augmentation.enabled=false | 982024 | 40 | 36 | 0.8601 | 0.8543 | 0.8766 | 0.7923 | 0.1234 | 9.4 |
 | a_dropout03 | train.epochs=60 model.channels=[32,64,128,256,256] model.dropout=0.3 | 982024 | 38 | 32 | 0.8661 | 0.8478 | 0.8737 | 0.7889 | 0.0512 | 9.7 |
 | a_base_seed43 | train.epochs=60 model.channels=[32,64,128,256,256] seed=43 | 982024 | 39 | 33 | 0.8895 | 0.8472 | 0.8651 | 0.8101 | 0.0914 | 9.9 |
