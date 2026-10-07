@@ -1,0 +1,11 @@
+{
+  "checkpoint": "checkpoints\\r_ft.pth",
+  "threshold": 0.99,
+  "n_test_known": 361,
+  "n_test_nissan": 302,
+  "known_only_accuracy": 0.9418,
+  "known_only_macro_f1": 0.9381,
+  "with_nissan_no_threshold_accuracy": 0.5128,
+  "with_nissan_threshold_accuracy": 0.7526,
+  "with_nissan_threshold_macro_f1_9way": 0.7971
+}

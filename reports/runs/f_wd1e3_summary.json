@@ -1,0 +1,20 @@
+{
+  "name": "f_wd1e3",
+  "changed_settings": [
+    "model.channels=[32,64,128,256,256]",
+    "train.epochs=40",
+    "train.scheduler=cosine",
+    "train.early_stopping_patience=0",
+    "train.save=last",
+    "train.weight_decay=0.001"
+  ],
+  "parameters": 982024,
+  "epochs_run": 40,
+  "best_epoch": 31,
+  "val_macro_f1": 0.8754,
+  "val_accuracy": 0.8857,
+  "val_loss": 0.3902,
+  "val_r2": 0.7851,
+  "train_accuracy_at_best": 0.9556,
+  "minutes": 9.4
+}

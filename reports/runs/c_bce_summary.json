@@ -1,0 +1,20 @@
+{
+  "name": "c_bce",
+  "changed_settings": [
+    "model.channels=[32,64,128,256,256]",
+    "train.epochs=40",
+    "train.scheduler=cosine",
+    "train.early_stopping_patience=0",
+    "train.save=last",
+    "train.loss=bce"
+  ],
+  "parameters": 982024,
+  "epochs_run": 40,
+  "best_epoch": 30,
+  "val_macro_f1": 0.8935,
+  "val_accuracy": 0.9,
+  "val_loss": 0.0991,
+  "val_r2": 0.7942,
+  "train_accuracy_at_best": 0.957,
+  "minutes": 10.8
+}

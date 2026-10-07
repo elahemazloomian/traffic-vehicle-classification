@@ -1,0 +1,17 @@
+{
+  "name": "a_base_seed43",
+  "changed_settings": [
+    "train.epochs=60",
+    "model.channels=[32,64,128,256,256]",
+    "seed=43"
+  ],
+  "parameters": 982024,
+  "epochs_run": 39,
+  "best_epoch": 33,
+  "val_macro_f1": 0.8895,
+  "val_accuracy": 0.9,
+  "val_loss": 0.3507,
+  "val_r2": 0.8101,
+  "train_accuracy_at_best": 0.952,
+  "minutes": 9.9
+}

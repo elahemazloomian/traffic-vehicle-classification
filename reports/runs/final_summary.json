@@ -1,0 +1,21 @@
+{
+  "name": "final",
+  "changed_settings": [
+    "model.name=resnet18",
+    "model.mode=finetune",
+    "train.epochs=40",
+    "train.scheduler=cosine",
+    "train.early_stopping_patience=0",
+    "train.save=last",
+    "data.use_all=true"
+  ],
+  "parameters": 8397832,
+  "epochs_run": 40,
+  "best_epoch": 15,
+  "val_macro_f1": 1.0,
+  "val_accuracy": 1.0,
+  "val_loss": 0.0059,
+  "val_r2": 0.9985,
+  "train_accuracy_at_best": 0.9953,
+  "minutes": 10.8
+}

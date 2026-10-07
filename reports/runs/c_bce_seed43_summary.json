@@ -1,0 +1,21 @@
+{
+  "name": "c_bce_seed43",
+  "changed_settings": [
+    "model.channels=[32,64,128,256,256]",
+    "train.epochs=40",
+    "train.scheduler=cosine",
+    "train.early_stopping_patience=0",
+    "train.save=last",
+    "train.loss=bce",
+    "seed=43"
+  ],
+  "parameters": 982024,
+  "epochs_run": 40,
+  "best_epoch": 34,
+  "val_macro_f1": 0.8998,
+  "val_accuracy": 0.9114,
+  "val_loss": 0.0832,
+  "val_r2": 0.8294,
+  "train_accuracy_at_best": 0.9678,
+  "minutes": 9.5
+}

@@ -1,0 +1,20 @@
+{
+  "name": "f_no_hflip",
+  "changed_settings": [
+    "model.channels=[32,64,128,256,256]",
+    "train.epochs=40",
+    "train.scheduler=cosine",
+    "train.early_stopping_patience=0",
+    "train.save=last",
+    "augmentation.hflip=0.0"
+  ],
+  "parameters": 982024,
+  "epochs_run": 40,
+  "best_epoch": 37,
+  "val_macro_f1": 0.8842,
+  "val_accuracy": 0.8971,
+  "val_loss": 0.3303,
+  "val_r2": 0.8153,
+  "train_accuracy_at_best": 0.9735,
+  "minutes": 12.7
+}

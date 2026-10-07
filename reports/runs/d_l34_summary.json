@@ -1,0 +1,20 @@
+{
+  "name": "d_l34",
+  "changed_settings": [
+    "model.name=resnet18",
+    "train.epochs=40",
+    "train.scheduler=cosine",
+    "train.early_stopping_patience=0",
+    "train.save=last",
+    "model.mode=finetune_l34"
+  ],
+  "parameters": 10497544,
+  "epochs_run": 40,
+  "best_epoch": 10,
+  "val_macro_f1": 0.9495,
+  "val_accuracy": 0.9543,
+  "val_loss": 0.2304,
+  "val_r2": 0.9037,
+  "train_accuracy_at_best": 0.995,
+  "minutes": 9.2
+}

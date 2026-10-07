@@ -1,0 +1,21 @@
+{
+  "name": "r_ft_seed43",
+  "changed_settings": [
+    "model.name=resnet18",
+    "train.epochs=40",
+    "train.scheduler=cosine",
+    "train.early_stopping_patience=0",
+    "train.save=last",
+    "model.mode=finetune",
+    "seed=43"
+  ],
+  "parameters": 8397832,
+  "epochs_run": 40,
+  "best_epoch": 19,
+  "val_macro_f1": 0.9481,
+  "val_accuracy": 0.9514,
+  "val_loss": 0.247,
+  "val_r2": 0.8903,
+  "train_accuracy_at_best": 0.9979,
+  "minutes": 7.7
+}

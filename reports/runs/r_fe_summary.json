@@ -1,0 +1,20 @@
+{
+  "name": "r_fe",
+  "changed_settings": [
+    "model.name=resnet18",
+    "train.epochs=40",
+    "train.scheduler=cosine",
+    "train.early_stopping_patience=0",
+    "train.save=last",
+    "model.mode=feature_extraction"
+  ],
+  "parameters": 4104,
+  "epochs_run": 40,
+  "best_epoch": 22,
+  "val_macro_f1": 0.8748,
+  "val_accuracy": 0.8914,
+  "val_loss": 0.4014,
+  "val_r2": 0.7853,
+  "train_accuracy_at_best": 0.9011,
+  "minutes": 8.2
+}

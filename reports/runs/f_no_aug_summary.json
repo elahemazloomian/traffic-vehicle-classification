@@ -1,0 +1,20 @@
+{
+  "name": "f_no_aug",
+  "changed_settings": [
+    "model.channels=[32,64,128,256,256]",
+    "train.epochs=40",
+    "train.scheduler=cosine",
+    "train.early_stopping_patience=0",
+    "train.save=last",
+    "augmentation.enabled=false"
+  ],
+  "parameters": 982024,
+  "epochs_run": 40,
+  "best_epoch": 36,
+  "val_macro_f1": 0.8601,
+  "val_accuracy": 0.88,
+  "val_loss": 0.4031,
+  "val_r2": 0.7923,
+  "train_accuracy_at_best": 1.0,
+  "minutes": 9.4
+}

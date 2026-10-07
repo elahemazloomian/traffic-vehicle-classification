@@ -1,0 +1,21 @@
+{
+  "name": "d_l34_seed44",
+  "changed_settings": [
+    "model.name=resnet18",
+    "train.epochs=40",
+    "train.scheduler=cosine",
+    "train.early_stopping_patience=0",
+    "train.save=last",
+    "model.mode=finetune_l34",
+    "seed=44"
+  ],
+  "parameters": 10497544,
+  "epochs_run": 40,
+  "best_epoch": 29,
+  "val_macro_f1": 0.9482,
+  "val_accuracy": 0.9514,
+  "val_loss": 0.2702,
+  "val_r2": 0.8931,
+  "train_accuracy_at_best": 0.9993,
+  "minutes": 8.7
+}

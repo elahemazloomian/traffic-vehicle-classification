@@ -1,0 +1,13 @@
+{
+  "name": "baseline",
+  "changed_settings": [],
+  "parameters": 94728,
+  "epochs_run": 30,
+  "best_epoch": 30,
+  "val_macro_f1": 0.6579,
+  "val_accuracy": 0.6641,
+  "val_loss": 1.0907,
+  "val_r2": 0.4361,
+  "train_accuracy_at_best": 0.6336,
+  "minutes": 7.1
+}
