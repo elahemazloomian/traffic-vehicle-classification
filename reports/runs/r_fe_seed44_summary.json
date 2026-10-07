@@ -1,0 +1,21 @@
+{
+  "name": "r_fe_seed44",
+  "changed_settings": [
+    "model.name=resnet18",
+    "train.epochs=40",
+    "train.scheduler=cosine",
+    "train.early_stopping_patience=0",
+    "train.save=last",
+    "model.mode=feature_extraction",
+    "seed=44"
+  ],
+  "parameters": 4104,
+  "epochs_run": 40,
+  "best_epoch": 23,
+  "val_macro_f1": 0.887,
+  "val_accuracy": 0.9,
+  "val_loss": 0.3894,
+  "val_r2": 0.7901,
+  "train_accuracy_at_best": 0.8961,
+  "minutes": 8.3
+}

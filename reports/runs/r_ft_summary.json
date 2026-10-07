@@ -1,0 +1,20 @@
+{
+  "name": "r_ft",
+  "changed_settings": [
+    "model.name=resnet18",
+    "train.epochs=40",
+    "train.scheduler=cosine",
+    "train.early_stopping_patience=0",
+    "train.save=last",
+    "model.mode=finetune"
+  ],
+  "parameters": 8397832,
+  "epochs_run": 40,
+  "best_epoch": 17,
+  "val_macro_f1": 0.9402,
+  "val_accuracy": 0.9429,
+  "val_loss": 0.2749,
+  "val_r2": 0.8745,
+  "train_accuracy_at_best": 0.9971,
+  "minutes": 8.7
+}
