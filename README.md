@@ -178,6 +178,8 @@ python -m src.summarize_runs
 
 Evaluation: `python -m src.evaluate --run r_ft`, `python -m src.unknown_eval --checkpoint checkpoints\r_ft.pth`, and the one-time test evaluation `python -m src.final_eval --checkpoint checkpoints\r_ft.pth`.
 
+This pins the CUDA 12.1 build of PyTorch. On a machine without an NVIDIA GPU, delete the first line and the `+cu121` suffixes; everything also runs on CPU, only more slowly. Notebooks need Jupyter (for example the VS Code Jupyter extension).
+
 ## Repository layout
 
 | Path | What it holds |
