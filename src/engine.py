@@ -1,6 +1,18 @@
 import torch
 import torch.nn.functional as F
+import torch.nn as nn
 from sklearn.metrics import f1_score
+
+
+class BCEOneHot(nn.Module):
+    """Binary cross-entropy on one-hot targets: every class is its own yes/no question."""
+
+    def __init__(self):
+        super().__init__()
+        self.loss = nn.BCEWithLogitsLoss()
+
+    def forward(self, scores, labels):
+        return self.loss(scores, F.one_hot(labels, scores.shape[1]).float())
 
 
 def squared_error(scores, labels):

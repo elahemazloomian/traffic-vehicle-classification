@@ -77,8 +77,15 @@ IMBALANCE_EXPERIMENTS = {
     "i_balanced_seed43": IMBALANCE + ["train.sampler=balanced", "seed=43"],
     "i_balanced_seed44": IMBALANCE + ["train.sampler=balanced", "seed=44"],
 }
+
+# Group 5 (loss): BCE on one-hot targets. The CE reference is f_base (3 seeds), already finished.
+BCE_EXPERIMENTS = {
+    "c_bce": ["train.loss=bce"],
+    "c_bce_seed43": ["train.loss=bce", "seed=43"],
+    "c_bce_seed44": ["train.loss=bce", "seed=44"],
+}
 def main():
-    all_experiments = {**EXPERIMENTS, **FIXED_EXPERIMENTS, **RESNET_EXPERIMENTS, **IMBALANCE_EXPERIMENTS}
+    all_experiments = {**EXPERIMENTS, **FIXED_EXPERIMENTS, **RESNET_EXPERIMENTS, **IMBALANCE_EXPERIMENTS, **BCE_EXPERIMENTS}
 
     parser = argparse.ArgumentParser(description="Run several experiments one after another.")
     parser.add_argument("--only", nargs="*", default=None, help="run only these experiments")
@@ -97,7 +104,7 @@ def main():
             continue
         if name in RESNET_EXPERIMENTS:
             base = RESNET_COMMON
-        elif name in FIXED_EXPERIMENTS or name in IMBALANCE_EXPERIMENTS:
+        elif name in FIXED_EXPERIMENTS or name in IMBALANCE_EXPERIMENTS or name in BCE_EXPERIMENTS:
             base = FIXED_BASE
         else:
             base = BASE

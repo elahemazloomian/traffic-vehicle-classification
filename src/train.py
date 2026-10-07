@@ -13,7 +13,7 @@ import torch.nn as nn
 import yaml
 
 from src.data import make_loaders
-from src.engine import evaluate, train_one_epoch
+from src.engine import BCEOneHot, evaluate, train_one_epoch
 from src.models import build_model
 from src.transforms import IMAGENET_MEAN, IMAGENET_STD
 from src.utils import get_device, load_config, set_seed
@@ -85,7 +85,7 @@ def main():
     print(f"run: {args.name} | device: {device} | parameters: {n_params}")
     print("changed settings:", args.set if args.set else "none")
 
-    loss_fn = nn.CrossEntropyLoss()
+    loss_fn = BCEOneHot() if tc["loss"] == "bce" else nn.CrossEntropyLoss()
     if hasattr(model, "net"):
         # ResNet: the pretrained layers learn slower than the new head
         trainable = [(n, p) for n, p in model.named_parameters() if p.requires_grad]

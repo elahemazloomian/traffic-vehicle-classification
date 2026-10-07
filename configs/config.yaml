@@ -50,3 +50,4 @@ train:
   save: best
   backbone_lr_scale: 0.1
   sampler: random
+  loss: ce
