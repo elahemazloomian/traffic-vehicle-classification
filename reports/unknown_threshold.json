@@ -1,0 +1,9 @@
+{
+  "checkpoint": "checkpoints\\r_ft.pth",
+  "threshold": 0.99,
+  "criterion": "maximise macro-F1 over 8 classes + unknown on val (known val + val-unknown Nissans)",
+  "val_macro_f1_9way": 0.7957,
+  "n_known_val": 350,
+  "n_val_unknown": 302,
+  "n_test_unknown": 302
+}
