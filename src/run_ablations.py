@@ -49,10 +49,36 @@ FIXED_EXPERIMENTS = {
     "f_avgpool": ["model.pooling=avg"],
     "f_constant_lr": ["train.scheduler=none"],
 }
+# Group 3 (ResNet18 transfer learning): same fixed recipe as group 2.
+RESNET_COMMON = [
+    "model.name=resnet18",
+    "train.epochs=40",
+    "train.scheduler=cosine",
+    "train.early_stopping_patience=0",
+    "train.save=last",
+]
 
+RESNET_EXPERIMENTS = {
+    "r_fe": ["model.mode=feature_extraction"],
+    "r_fe_seed43": ["model.mode=feature_extraction", "seed=43"],
+    "r_fe_seed44": ["model.mode=feature_extraction", "seed=44"],
+    "r_ft": ["model.mode=finetune"],
+    "r_ft_seed43": ["model.mode=finetune", "seed=43"],
+    "r_ft_seed44": ["model.mode=finetune", "seed=44"],
+}
+# Group 4 (imbalance): keep 20% of the minibus and taxi training images, compare batch samplers.
+IMBALANCE = ["data.imbalance_classes=[minibus,taxi]", "data.imbalance_keep=0.2"]
 
+IMBALANCE_EXPERIMENTS = {
+    "i_random": IMBALANCE + ["train.sampler=random"],
+    "i_random_seed43": IMBALANCE + ["train.sampler=random", "seed=43"],
+    "i_random_seed44": IMBALANCE + ["train.sampler=random", "seed=44"],
+    "i_balanced": IMBALANCE + ["train.sampler=balanced"],
+    "i_balanced_seed43": IMBALANCE + ["train.sampler=balanced", "seed=43"],
+    "i_balanced_seed44": IMBALANCE + ["train.sampler=balanced", "seed=44"],
+}
 def main():
-    all_experiments = {**EXPERIMENTS, **FIXED_EXPERIMENTS}
+    all_experiments = {**EXPERIMENTS, **FIXED_EXPERIMENTS, **RESNET_EXPERIMENTS, **IMBALANCE_EXPERIMENTS}
 
     parser = argparse.ArgumentParser(description="Run several experiments one after another.")
     parser.add_argument("--only", nargs="*", default=None, help="run only these experiments")
@@ -69,7 +95,12 @@ def main():
         if (runs_dir / f"{name}_summary.json").exists():
             print(f"[{i}/{len(names)}] skip {name}: already finished")
             continue
-        base = FIXED_BASE if name in FIXED_EXPERIMENTS else BASE
+        if name in RESNET_EXPERIMENTS:
+            base = RESNET_COMMON
+        elif name in FIXED_EXPERIMENTS or name in IMBALANCE_EXPERIMENTS:
+            base = FIXED_BASE
+        else:
+            base = BASE
         command = [sys.executable, "-m", "src.train", "--name", name, "--set", *base, *all_experiments[name]]
         print(f"\n[{i}/{len(names)}] {name}: {' '.join(command[3:])}")
         if args.dry_run:

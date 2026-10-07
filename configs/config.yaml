@@ -10,6 +10,8 @@ data:
   batch_size: 32
   val_fraction: 0.2
   num_workers: 0
+  imbalance_classes: []
+  imbalance_keep: 1.0
 
 duplicates:
   max_distance: 8
@@ -32,6 +34,10 @@ model:
   channels: [32, 64, 128]
   dropout: 0.0
   pooling: max
+  name: simple_cnn
+  mode: finetune
+
+
 
 train:
   epochs: 30
@@ -42,3 +48,5 @@ train:
   scheduler_patience: 2
   early_stopping_patience: 6
   save: best
+  backbone_lr_scale: 0.1
+  sampler: random

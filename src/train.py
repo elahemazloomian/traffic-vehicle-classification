@@ -86,7 +86,17 @@ def main():
     print("changed settings:", args.set if args.set else "none")
 
     loss_fn = nn.CrossEntropyLoss()
-    optimizer = torch.optim.AdamW(model.parameters(), lr=tc["lr"], weight_decay=tc["weight_decay"])
+    if hasattr(model, "net"):
+        # ResNet: the pretrained layers learn slower than the new head
+        trainable = [(n, p) for n, p in model.named_parameters() if p.requires_grad]
+        head = [p for n, p in trainable if n.startswith("net.fc")]
+        body = [p for n, p in trainable if not n.startswith("net.fc")]
+        groups = [{"params": head, "lr": tc["lr"]}]
+        if body:
+            groups.append({"params": body, "lr": tc["lr"] * tc["backbone_lr_scale"]})
+        optimizer = torch.optim.AdamW(groups, weight_decay=tc["weight_decay"])
+    else:
+        optimizer = torch.optim.AdamW(model.parameters(), lr=tc["lr"], weight_decay=tc["weight_decay"])
     scheduler = None
     if tc["scheduler"] == "plateau":
         scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
