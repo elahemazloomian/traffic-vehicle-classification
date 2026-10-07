@@ -70,7 +70,9 @@ def make_datasets(cfg):
     for name in ("train", "val", "test"):
         part = splits[splits["subset"] == name].reset_index(drop=True)
         if name == "train":
-            part = simulate_imbalance(part, cfg)        
+            part = simulate_imbalance(part, cfg)   
+        if name == "train" and cfg["data"]["use_all"]:
+            part = splits.reset_index(drop=True)     
         transform = build_transforms(cfg, train=(name == "train"))
         datasets[name] = VehicleDataset(part, cfg["paths"]["data_dir"], transform)
     return datasets

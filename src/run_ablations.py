@@ -84,8 +84,15 @@ BCE_EXPERIMENTS = {
     "c_bce_seed43": ["train.loss=bce", "seed=43"],
     "c_bce_seed44": ["train.loss=bce", "seed=44"],
 }
+# Group 6: deeper fine-tuning (layer3 + layer4). Reference: r_ft (layer4 only).
+DEEP_EXPERIMENTS = {
+    "d_l34": ["model.mode=finetune_l34"],
+    "d_l34_seed43": ["model.mode=finetune_l34", "seed=43"],
+    "d_l34_seed44": ["model.mode=finetune_l34", "seed=44"],
+}
 def main():
-    all_experiments = {**EXPERIMENTS, **FIXED_EXPERIMENTS, **RESNET_EXPERIMENTS, **IMBALANCE_EXPERIMENTS, **BCE_EXPERIMENTS}
+    all_experiments = {**EXPERIMENTS, **FIXED_EXPERIMENTS, **RESNET_EXPERIMENTS,
+                       **IMBALANCE_EXPERIMENTS, **BCE_EXPERIMENTS, **DEEP_EXPERIMENTS}
 
     parser = argparse.ArgumentParser(description="Run several experiments one after another.")
     parser.add_argument("--only", nargs="*", default=None, help="run only these experiments")
@@ -102,7 +109,7 @@ def main():
         if (runs_dir / f"{name}_summary.json").exists():
             print(f"[{i}/{len(names)}] skip {name}: already finished")
             continue
-        if name in RESNET_EXPERIMENTS:
+        if name in RESNET_EXPERIMENTS or name in DEEP_EXPERIMENTS:
             base = RESNET_COMMON
         elif name in FIXED_EXPERIMENTS or name in IMBALANCE_EXPERIMENTS or name in BCE_EXPERIMENTS:
             base = FIXED_BASE

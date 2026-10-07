@@ -34,18 +34,25 @@ class ResNet18Classifier(nn.Module):
     """ImageNet-pretrained ResNet18 with a new 8-class head.
 
     feature_extraction: only the new head (fc) is trained.
-    finetune: layer4 and the new head are trained, everything else stays frozen.
+    finetune: layer4 and the new head are trained.
+    finetune_l34: layer3, layer4 and the new head are trained.
     Frozen parts are kept in eval mode, so their BatchNorm statistics never change.
     """
 
+    PARTS = {
+        "feature_extraction": ["fc"],
+        "finetune": ["layer4", "fc"],
+        "finetune_l34": ["layer3", "layer4", "fc"],
+    }
+
     def __init__(self, num_classes, mode="finetune", dropout=0.0):
         super().__init__()
-        if mode not in ("feature_extraction", "finetune"):
+        if mode not in self.PARTS:
             raise ValueError(f"unknown mode: {mode}")
         net = tv.resnet18(weights=tv.ResNet18_Weights.IMAGENET1K_V1)
         net.fc = nn.Sequential(nn.Dropout(dropout), nn.Linear(net.fc.in_features, num_classes))
 
-        self.trainable_parts = ["fc"] if mode == "feature_extraction" else ["layer4", "fc"]
+        self.trainable_parts = self.PARTS[mode]
         for name, param in net.named_parameters():
             param.requires_grad = name.split(".")[0] in self.trainable_parts
         self.net = net

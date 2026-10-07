@@ -12,6 +12,7 @@ data:
   num_workers: 0
   imbalance_classes: []
   imbalance_keep: 1.0
+  use_all: false
 
 duplicates:
   max_distance: 8
